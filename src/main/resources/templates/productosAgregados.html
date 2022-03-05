@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="layout :: head">
+
+</head>
+
+<body>
+
+	<nav th:replace="layout :: nav">
+
+	</nav>
+
+
+	<div class="container">
+		<h3 class="text-center">PRODUCTOS AGREGADOS</h3>
+		<div class="row">
+			<div class="col">
+
+			</div>
+			<div class="col">
+				<div class="table-responsive">
+					<table class="table table-hover table-bordered " id="userList">
+						<thead>
+							<tr class="table-primary">
+								<th>Id</th>
+								<th>Nombre</th>
+								<th>Exitencia</th>
+								<th>Precio</th>
+								<!--<th>Descripcion</th>-->
+								<th>Nombre de imagen</th>
+								<th>Borrar</th>
+								<th>Editar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="table-info" th:each="dato : ${productos}">
+								<td th:text="${dato.Id}"></td>
+								<td th:text="${dato.nombre}"></td>
+								<td th:text="${dato.cantidad}"></td>
+								<td th:text="${dato.precio}"></td>
+								<!--<td th:text="${dato.descripcion}"></td>-->
+								<td th:text="${dato.nombreimg}"></td>
+
+								<td>
+									<form th:action="@{/borrarProducto}" method="POST">
+										<button type="submit" onclick='return btnClick();' id="mybutton"
+											class="btn btn-danger" th:name="contId" th:value="${dato.id}"><svg
+												xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+												fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+												<path
+													d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+											</svg></button>
+									</form>
+
+
+								</td>
+								<td>
+									<form th:action="@{#}" method="POST">
+										<button type="submit" onclick='return btnClick();' id="mybutton"
+											class="btn btn-danger" th:name="contId" th:value="${dato.id}"><svg
+												xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+												fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+												<path
+													d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+												<path fill-rule="evenodd"
+													d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+											</svg></button>
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col">
+
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+			$('#userList').DataTable();
+		});
+
+	</script>
+
+	<script type="text/javascript">
+
+		function btnClick() {
+			var resultado = window.confirm('¿Estas seguro de que quieres eliminar el producto?');
+			if (resultado === true) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+	</script>
+
+</body>
+
+<div th:replace="layout :: container-f">
+
+</div>
+<footer th:replace="layout :: footer"></footer>
+
+</html>

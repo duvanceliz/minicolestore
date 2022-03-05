@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="layout :: head">
+
+
+
+</head>
+
+<body>
+	<nav th:replace="layout :: nav">
+
+	</nav>
+
+
+	<div class="container">
+		<h3 class="text-center">USUARIOS REGISTRADOS</h3>
+		<div class="row">
+			<div class="col">
+
+			</div>
+			<div class="col">
+				<div class="alert alert-dismissible alert-success" th:if="${messageDelete}" th:text="${messageDelete}">
+
+				</div>
+				<div class="table-responsive">
+					<table class="table table-hover table-bordered " id="userList">
+						<thead>
+							<tr class="table-dark">
+								<th>Id</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Email</th>
+								<th>Nombre de usuario</th>
+								<th>Rol</th>
+								<th>Estado</th>
+								<th>Cambiar rol</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="table-info" th:each="user : ${usuarios}">
+								<td th:text="${user.id}"></td>
+								<td th:text="${user.nombre}"></td>
+								<td th:text="${user.apellido}"></td>
+								<td th:text="${user.email}"></td>
+								<td th:text="${user.username}"></td>
+								<td th:text="${user.authority}"></td>
+								<td>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+										class="bi bi-person-check-fill" viewBox="0 0 16 16" th:if="${user.enabled}">
+										<path fill-rule="evenodd"
+											d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+										<path
+											d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+									</svg>
+
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+										class="bi bi-person-x-fill" viewBox="0 0 16 16" th:if="${!user.enabled}">
+										<path fill-rule="evenodd"
+											d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z" />
+									</svg>
+
+								</td>
+
+
+								<td>
+									<form th:action="@{cambiarRol}" method="post">
+										<button type="submit" onclick='return btnClick();' id="mybutton"
+											class="btn btn-success" th:name="userId" th:value="${user.id}"
+											th:if="${user.isAdmin}">Quitar
+											Admin</button>
+										<button type="submit" onclick='return btnClick();' id="mybutton"
+											class="btn btn-danger" th:name="userId" th:value="${user.id}"
+											th:unless="${user.isAdmin}">Hacer
+											Admin</button>
+									</form>
+								</td>
+
+
+
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col">
+
+
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+			$('#userList').DataTable();
+		});
+
+	</script>
+	
+	<script type="text/javascript">
+
+		function btnClick() {
+			var resultado = window.confirm('¿Estas seguro de que quieres convertir al usuario en administrador?');
+			if (resultado === true) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+	</script>
+</body>
+
+<div th:replace="layout :: container-f">
+
+</div>
+<footer th:replace="layout :: footer"></footer>
+
+</html>
